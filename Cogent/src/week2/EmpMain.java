@@ -8,24 +8,32 @@ public class EmpMain {
 		boolean created = false;
 		
 		while(!created) {
-			System.out.println("Enter Employee ID");
-			int id = Integer.parseInt(sc.nextLine());
-			System.out.println("Enter Employee Name");
-			String name = sc.nextLine();
-			System.out.println("Enter Employee Designation");
-			String designation = sc.nextLine();
-			System.out.println("Enter Employee Basic");
-			double basic = Double.parseDouble(sc.nextLine());
-			
 			try {
-				Emp emp = new Emp(id, name, designation, basic);
-				emp.printDET();
-				created = true;
-			}catch(InvalidDesignation | LowSalException e) {
-				System.out.println(e.getMessage());
+				System.out.println("Enter Employee ID");
+				int id = Integer.parseInt(sc.nextLine());
+				System.out.println("Enter Employee Name");
+				String name = sc.nextLine();
+				System.out.println("Enter Employee Designation");
+				String designation = sc.nextLine();
+				System.out.println("Enter Employee Basic");
+				double basic = Double.parseDouble(sc.nextLine());
+				
+				created = attemptEmp(id, name, designation, basic, created);
+			} catch(NumberFormatException e) {
+				System.out.println("Please enter a whole number");
 			}
 		}
-		
+	}
+	
+	public static boolean attemptEmp(int id, String name, String designation, double basic, boolean created) {
+		try {
+			Emp emp = new Emp(id, name, designation, basic);
+			emp.printDET();
+			created=true;
+		}catch(InvalidDesignation | LowSalException e) {
+			System.out.println(e.getMessage());
+		}
+		return created;
 	}
 
 }
